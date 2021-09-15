@@ -9,7 +9,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
+      },
+      account: {
+        type: Sequelize.STRING,
+        unique: true
       },
       password: {
         type: Sequelize.STRING
@@ -18,6 +23,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       avatar: {
+        type: Sequelize.STRING
+      },
+      cover: {
         type: Sequelize.STRING
       },
       introduction: {
