@@ -22,7 +22,7 @@
 
           <span style="color: white;margin-right: 10px;">Hi, user.email</span>
           <a href="/users/{{user.id}}" style="color: white;margin-right: 10px;">Profile</a>
-          <a href="/logout"><button class="btn btn-outl ine-success my-2 my-sm-0">LogOut</button></a>
+          <a href="/logout"><button class="btn btn-outline-success my-2 my-sm-0">LogOut</button></a>
 
         </div>
       </div>
@@ -38,11 +38,11 @@
           {{success_messages}}
         </div>
         {{/if}}
-        {{#if error_messages}}
+        {{#each error_messages}}
         <div class="alert alert-danger" role="alert" style="margin: 30px 0;">
-          {{error_messages}}
+          {{this}}
         </div>
-        {{/if}}
+        {{/each}}
 
         {{{body}}}
       </div>

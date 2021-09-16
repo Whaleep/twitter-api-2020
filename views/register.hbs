@@ -1,0 +1,38 @@
+<form class="form-signin" action="{{#if api}}/api{{/if}}/users" method="POST" style="width: 100%;">
+  <div class="text-center mb-4">
+    <h1 class="h3 mb-3 fw-normal">建立你的帳號{{#if api}}(api測試用){{/if}}</h1>
+        {{#if api}}
+        <p><a href="/register">切換到一般註冊</a></p>
+        {{else}}
+        <p><a href="/api/register">切換到api註冊</a></p>
+        {{/if}}
+  </div>
+  <div class="mb-3">
+    <label for="account" class="form-label">帳號 Account</label>
+    <input type="text" name="account" id="account" class="form-control" placeholder="Account" autofocus>
+  </div>
+  <div class="mb-3">
+    <label for="name" class="form-label">名稱 Name</label>
+    <input type="text" name="name" id="name" class="form-control" placeholder="Name" autofocus>
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="text" name="email" id="email" class="form-control" placeholder="Email" autofocus>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">密碼 Password</label>
+    <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+  </div>
+  <div class="mb-3">
+    <label for="checkPassword" class="form-label">密碼確認 Password Check</label>
+    <input type="password" name="checkPassword" id="checkPassword" class="form-control" placeholder="Password Check">
+  </div>
+  <br />
+  <div class="d-grid gap-2">
+    <button class="btn btn-lg btn-primary" type="submit">註冊</button>
+  </div>
+  <div class="text-center mb-4">
+    <p><a href="{{#if api}}/api{{/if}}/login">登入</a></p>
+  </div>
+  <p class="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
+</form>

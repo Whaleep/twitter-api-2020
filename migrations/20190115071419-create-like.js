@@ -9,12 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       UserId: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Users', key: 'id' }
+        type: Sequelize.INTEGER
       },
       TweetId: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Tweets', key: 'id' }
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
