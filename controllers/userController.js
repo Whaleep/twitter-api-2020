@@ -19,6 +19,9 @@ const userController = {
     req.flash('success_messages', '登出成功！')
     req.logout()
     res.redirect('/login')
+  },
+  getUser: (req, res) => {
+    userService.getUser(req, res, (data) => res.render('profile', data))
   }
 }
 

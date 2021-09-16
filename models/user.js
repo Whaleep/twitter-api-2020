@@ -8,7 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     avatar: DataTypes.STRING,
     cover: DataTypes.STRING,
     introduction: DataTypes.TEXT,
-    role: DataTypes.STRING
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'user'
+    }
   }, {});
   User.associate = function (models) {
 

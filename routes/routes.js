@@ -30,7 +30,9 @@ router.get('/login', (req, res) => res.render('login', { api: false }))
 router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), userController.login)
 router.get('/logout', userController.logout)
 
+router.get('/users/:id', authenticatedUser, userController.getUser)
+
 router.get('/', (req, res) => res.redirect('home'))
-router.get('/home', authenticatedAdmin, tweetController.getHome)
+router.get('/home', authenticatedUser, tweetController.getHome)
 
 module.exports = router

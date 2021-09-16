@@ -8,11 +8,15 @@ const userController = require('../controllers/api/userController')
 const passport = require('../config/passport')
 
 // use helpers.getUser(req) to replace req.user
-// function authenticated(req, res, next) {
-//   passport.authenticate('jwt', { session: false })
-// }
-
-const authenticated = passport.authenticate('jwt', { session: false })
+function authenticated(req, res, next) {
+  passport.authenticate('jwt', { session: false }, (error, user, info) => {
+    if (user) {
+      req.user = user.dataValues
+      return next()
+    }
+    return res.status(401).json({ message: '請先登入在使用' })
+  })(req, res, next)
+}
 
 const authenticatedUser = (req, res, next) => {
   // return next()
@@ -39,7 +43,7 @@ router.post('/users', userController.register)
 router.get('/login', (req, res) => res.render('login', { api: true }))
 router.post('/login', userController.login)
 
-
+router.get('/users/:id', authenticated, authenticatedUser, userController.getUser)
 
 router.get('/', (req, res) => res.redirect('home'))
 router.get('/home', authenticated, authenticatedUser, tweetController.getHome)

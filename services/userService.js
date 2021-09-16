@@ -31,6 +31,24 @@ const userService = {
           .catch(error => res.status(400).json(error))
       }
     })
+  },
+  getUser: (req, res, callback) => {
+    return User.findByPk(req.params.id, {
+      include: [{ model: User, as: 'Followings' }, { model: User, as: 'Followers' },]
+    })
+      .then(user => {
+        user = {
+          user: user.id,
+          name: user.name,
+          account: user.account,
+          email: user.email,
+          avatar: user.avatar,
+          cover: user.cover,
+          followingCount: user.Followings.length,
+          followerCount: user.Followers.length
+        }
+        callback(user)
+      })
   }
 }
 
