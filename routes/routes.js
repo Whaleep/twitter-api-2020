@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const tweetController = require('../controllers/tweetController')
+
+router.get('/', (req, res) => res.redirect('home'))
+router.get('/home', tweetController.getHome)
 
 module.exports = router

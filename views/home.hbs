@@ -1,0 +1,37 @@
+<h1>首頁</h1>
+
+<a href='/home'>首頁</a> | <a href='/api/home'>首頁api</a>
+
+<br />
+<br />
+
+<table class="table">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">頭像</th>
+      <th scope="col">發文者</th>
+      <th scope="col">發文者Account</th>
+      <th scope="col">建立時間</th>
+      <th scope="col">內容</th>
+      <th scope="col">回覆數</th>
+      <th scope="col">Like數</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each tweets}}
+    <tr>
+      <th scope="row">{{this.id}}</th>
+      <td>
+        <img class="" src="{{this.User.avatar}}" width="50px" height="50px">
+      </td>
+      <td>{{this.User.id}} {{this.User.name}}</td>
+      <td>{{this.User.account}}</td>
+      <td>{{moment this.createdAt}}</td>
+      <td>{{this.description}}</td>
+      <td>{{this.replyCount}}</td>
+      <td>{{this.likeCount}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
