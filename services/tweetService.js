@@ -13,7 +13,6 @@ const tweetService = {
           replyCount: tweet.Replies.length,
           likeCount: tweet.Likes.length
         }))
-        console.log('tweets', tweets)
         callback({ tweets })
       })
   }
