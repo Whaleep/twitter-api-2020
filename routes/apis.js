@@ -4,6 +4,7 @@ const router = express.Router()
 
 const tweetController = require('../controllers/api/tweetController')
 const userController = require('../controllers/api/userController')
+const adminController = require('../controllers/api/adminController')
 
 const passport = require('../config/passport')
 
@@ -19,7 +20,6 @@ function authenticated(req, res, next) {
 }
 
 const authenticatedUser = (req, res, next) => {
-  // return next()
   if (req.user) {
     if (req.user.role === 'user') { return next() }
     return res.json({ status: 'error', message: 'permission denied' })
@@ -29,23 +29,34 @@ const authenticatedUser = (req, res, next) => {
 }
 
 const authenticatedAdmin = (req, res, next) => {
-  // return next()
-  if (req.user) {
-    if (req.user.role === 'admin') { return next() }
+  if (helpers.getUser(req)) {
+    if (helpers.getUser(req).role === 'admin') { return next() }
     return res.json({ status: 'error', message: 'permission denied' })
   } else {
     return res.json({ status: 'error', message: 'permission denied' })
   }
 }
 
-router.get('/register', (req, res) => res.render('register', { api: true }))
+router.use((req, res, next) => {
+  res.locals.api = true
+  next()
+})
+
+router.get('/register', (req, res) => res.render('register'))
 router.post('/users', userController.register)
-router.get('/login', (req, res) => res.render('login', { api: true }))
+router.get('/login', (req, res) => res.render('login'))
 router.post('/login', userController.login)
 
 router.get('/users/:id', authenticated, authenticatedUser, userController.getUser)
 
 router.get('/', (req, res) => res.redirect('home'))
 router.get('/home', authenticated, authenticatedUser, tweetController.getHome)
+
+router.get('/admin', (req, res) => res.redirect('/admin/tweets'))
+router.get('/admin/login', (req, res) => res.render('admin/login'))
+router.post('/admin/login', userController.login)
+router.get('/admin/tweets', authenticated, authenticatedAdmin, adminController.getTweets)
+router.delete('/admin/tweets/:id', authenticated, authenticatedAdmin, adminController.removeTweet)
+router.get('/admin/users', authenticated, authenticatedAdmin, adminController.getUsers)
 
 module.exports = router

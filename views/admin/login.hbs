@@ -1,10 +1,10 @@
-<form class="form-signin" action="{{#if api}}/api{{/if}}/login" method="POST" style="width: 100%;">
+<form class="form-signin" action="{{#if api}}/api{{/if}}/admin/login" method="POST" style="width: 100%;">
   <div class="text-center mb-4">
-    <h1 class="h3 mb-3 fw-normal">登入{{#if api}}(api測試用){{/if}}</h1>
+    <h1 class="h3 mb-3 fw-normal">後台登入{{#if api}}(api測試用){{/if}}</h1>
     {{#if api}}
-    <p><a href="/login">切換到一般登入</a></p>
+    <p><a href="/admin/login">切換到一般後台登入</a></p>
     {{else}}
-    <p><a href="/api/login">切換到api登入</a></p>
+    <p><a href="/api/admin/login">切換到api後台登入</a></p>
     {{/if}}
   </div>
   <div class="mb-3">
@@ -21,7 +21,7 @@
   </div>
   <div class="text-center mb-4">
     <p><a href="{{#if api}}/api{{/if}}/register">註冊</a></p>
-    <p><a href="{{#if api}}/api{{/if}}/admin/login">後台登入</a></p>
+    <p><a href="{{#if api}}/api{{/if}}/login">前台登入</a></p>
   </div>
   <p class="mt-5 mb-3 text-muted text-center">© 2021</p>
 </form>
