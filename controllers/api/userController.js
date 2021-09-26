@@ -34,11 +34,26 @@ const userController = {
       return res.json({ status: 'success', message: 'ok', token, user: { id: user.id, name: user.name, email: user.email, role: user.role } })
     })
   },
-  getProfile: (req,res)=>{
+  getProfile: (req, res) => {
     userService.getProfile(req, res, (data) => res.json(data))
   },
   getUser: (req, res) => {
     userService.getUser(req, res, (data) => res.json(data))
+  },
+  addFollowing: (req, res) => {
+    userService.addFollowing(req, res, (data) => res.json(data))
+  },
+  removeFollowing: (req, res) => {
+    userService.removeFollowing(req, res, (data) => res.json(data))
+  },
+  addSubscribe: (req, res) => {
+    userService.addSubscribe(req, res, (data) => res.json(data))
+  },
+  removeSubscribe: (req, res) => {
+    userService.removeSubscribe(req, res, (data) => res.json(data))
+  },
+  getNotifications: (req, res) => {
+    userService.getNotifications(req, res, (data) => res.json(data))
   }
 }
 

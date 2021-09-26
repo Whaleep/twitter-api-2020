@@ -25,6 +25,43 @@ const userController = {
   },
   getUser: (req, res) => {
     userService.getUser(req, res, (data) => res.render('profile', data))
+  },
+  addFollowing: (req, res) => {
+    userService.addFollowing(req, res, (data) => {
+      if (data['status'] === '200') {
+        req.flash('success_messages', data['message'])
+        return res.redirect('back')
+      }
+      req.flash('error_messages', data['message'])
+      return res.redirect('back')
+    })
+  },
+  removeFollowing: (req, res) => {
+    userService.removeFollowing(req, res, (data) => {
+      if (data['status'] === '200') {
+        res.redirect('back')
+      }
+    })
+  },
+  addSubscribe: (req, res) => {
+    userService.addSubscribe(req, res, (data) => {
+      if (data['status'] === '200') {
+        req.flash('success_messages', data['message'])
+        return res.redirect('back')
+      }
+      req.flash('error_messages', data['message'])
+      return res.redirect('back')
+    })
+  },
+  removeSubscribe: (req, res) => {
+    userService.removeSubscribe(req, res, (data) => {
+      if (data['status'] === '200') {
+        res.redirect('back')
+      }
+    })
+  },
+  getNotifications: (req, res) => {
+    userService.getNotifications(req, res, (data) => res.json(data))
   }
 }
 

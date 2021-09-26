@@ -11,11 +11,30 @@
         <li><strong>{{followingsCount}}</strong> followings (跟隨中)</li>
         <li><strong>{{followersCount}}</strong> followers (跟隨者)</li>
       </ul>
-      {{#if isFollowed }}
-      <form action="/following/{{profile.id}}?_method=DELETE" method="POST" style="display: contents;"><button type="submit" class="btn btn-danger">取消追蹤</button></form>
+      {{#ifCond user.id id}}
+      <a href="/users/{{user.id}}/edit" class="btn btn-primary">edit</a>
       {{else}}
-      <form action="/following/{{profile.id}}" method="POST" style="display: contents;"><button type="submit" class="btn btn-primary">追蹤</button></form>
+      {{#if isFollowed }}
+      <form action="/followships/{{id}}?_method=DELETE" method="POST" style="display: contents;"> <button type="submit" class="btn btn-danger">取消追蹤</button> </form>
+      <form action="/api/followships/{{id}}?_method=DELETE" method="POST" style="display: contents;"> <button type="submit" class="btn btn-danger">取消追蹤api</button> </form>
+      {{else}}
+      <form action="/followships" method="POST" style="display: contents;">
+        <input type="hidden" name="id" value="{{id}}">
+        <button type="submit" class="btn btn-primary">追蹤</button>
+      </form>
+      <form action="/api/followships" method="POST" style="display: contents;">
+        <input type="hidden" name="id" value="{{id}}">
+        <button type="submit" class="btn btn-primary">追蹤api</button>
+      </form>
       {{/if}}
+      {{#if isSubscribed }}
+      <form action="/subscribe/{{id}}?_method=DELETE" method="POST" style="display: contents;"><button type="submit" class="btn btn-danger">取消訂閱</button></form>
+      <form action="/api/subscribe/{{id}}?_method=DELETE" method="POST" style="display: contents;"><button type="submit" class="btn btn-danger">取消訂閱api</button></form>
+      {{else}}
+      <form action="/subscribe/{{id}}" method="POST" style="display: contents;"><button type="submit" class="btn btn-primary">訂閱</button></form>
+      <form action="/api/subscribe/{{id}}" method="POST" style="display: contents;"><button type="submit" class="btn btn-primary">訂閱api</button></form>
+      {{/if}}
+      {{/ifCond}}
     </div>
   </div>
 </div>

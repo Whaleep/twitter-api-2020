@@ -41,6 +41,11 @@ router.get('/logout', userController.logout)
 
 router.get('/profile', authenticated, userController.getUser)
 router.get('/users/:id', authenticatedUser, userController.getUser)
+router.post('/followships', authenticatedUser, userController.addFollowing)
+router.delete('/followships/:followingId', authenticatedUser, userController.removeFollowing)
+router.post('/subscribe/:id', authenticatedUser, userController.addSubscribe)
+router.delete('/subscribe/:id', authenticatedUser, userController.removeSubscribe)
+router.get('/notifications', authenticatedUser, userController.getNotifications)
 
 router.get('/', (req, res) => res.redirect('home'))
 router.get('/home', authenticatedUser, tweetController.getHome)
