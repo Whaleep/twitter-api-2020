@@ -8,8 +8,8 @@
       <p>{{account}}</p>
       <p>{{email}}</p>
       <ul class="list-unstyled">
-        <li><strong>{{followingCount}}</strong> followings (跟隨中)</li>
-        <li><strong>{{followerCount}}</strong> followers (跟隨者)</li>
+        <li><strong>{{followingsCount}}</strong> followings (跟隨中)</li>
+        <li><strong>{{followersCount}}</strong> followers (跟隨者)</li>
       </ul>
       {{#if isFollowed }}
       <form action="/following/{{profile.id}}?_method=DELETE" method="POST" style="display: contents;"><button type="submit" class="btn btn-danger">取消追蹤</button></form>

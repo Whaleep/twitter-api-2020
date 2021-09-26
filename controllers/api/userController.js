@@ -34,6 +34,9 @@ const userController = {
       return res.json({ status: 'success', message: 'ok', token, user: { id: user.id, name: user.name, email: user.email, role: user.role } })
     })
   },
+  getProfile: (req,res)=>{
+    userService.getProfile(req, res, (data) => res.json(data))
+  },
   getUser: (req, res) => {
     userService.getUser(req, res, (data) => res.json(data))
   }

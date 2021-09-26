@@ -20,6 +20,9 @@ const userController = {
     req.logout()
     res.redirect('/login')
   },
+  getProfile: (req, res) => {
+    userService.getProfile(req, res, (data) => res.render('profile', data))
+  },
   getUser: (req, res) => {
     userService.getUser(req, res, (data) => res.render('profile', data))
   }

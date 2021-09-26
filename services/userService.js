@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
-const db = require('../models')
-const User = db.User
+const sequelize = require('sequelize')
+const { User, Tweet, Like } = require('../models')
 
 const userService = {
   register: (req, res, callback) => {
@@ -33,19 +33,25 @@ const userService = {
     })
   },
   getUser: (req, res, callback) => {
-    return User.findByPk(req.params.id, {
-      include: [{ model: User, as: 'Followings' }, { model: User, as: 'Followers' },]
+    const UserId = Number(req.params.id) || req.user.id
+    return User.findByPk(UserId, {
+      attributes: ['id', 'name', 'account', 'email', 'role', 'avatar', 'cover',
+        [sequelize.literal('COUNT(DISTINCT Tweets.id)'), 'tweetsCount'],
+        [sequelize.literal('COUNT(DISTINCT Likes.id)'), 'likesCount'],
+        [sequelize.literal('COUNT(DISTINCT Followers.id)'), 'followingsCount'],
+        [sequelize.literal('COUNT(DISTINCT Followings.id)'), 'followersCount']
+      ],
+      include: [
+        { model: Tweet, attributes: [] },
+        { model: Like, attributes: [] },
+        { model: User, as: 'Followings', attributes: [], through: { attributes: [] } },
+        { model: User, as: 'Followers', attributes: [], through: { attributes: [] } }
+      ]
     })
       .then(user => {
         user = {
-          user: user.id,
-          name: user.name,
-          account: user.account,
-          email: user.email,
-          avatar: user.avatar,
-          cover: user.cover,
-          followingCount: user.Followings.length,
-          followerCount: user.Followers.length
+          ...user.toJSON(),
+          isFollowed: req.user.Followings.map(d => d.id).includes(UserId)
         }
         callback(user)
       })
